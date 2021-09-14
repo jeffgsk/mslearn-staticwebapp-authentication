@@ -1,20 +1,38 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["*.{css,scss,js,png,gif,ico,jpg,svg}"],
-    "routes": [
-      {
-        "route": "/api/products/*",
-        "allowedRoles": ["authenticated"]
-      },
-      {
-        "route": "/.auth/login/aad",
-        "statusCode": 404
+    "exclude": ["*.{css,scss,js,png,gif,ico,jpg,svg}"]
+  },
+  "routes": [
+    {
+      "route": "/api/products/*",
+      "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/.auth/login/aad",
+      "statusCode": 404
+    }
+  ],
+  "auth": {
+    "identityProviders": {
+      "customOpenIdConnectProviders": {
+        "ping": {
+          "registration": {
+            "clientIdSettingName": "@Microsoft.KeyVault(SecretUri=https://corp-developer-kv-dev.vault.azure.net/secrets/oauth-client-id/e5304179f42747bcb750074d943ef184)",
+            "clientCredential": {
+              "clientSecretSettingName": "@Microsoft.KeyVault(SecretUri=https://corp-developer-kv-dev.vault.azure.net/secrets/oauth-client-secret/a596d9c6056e4667ae21b201cf68eca4)"
+            },
+            "openIdConnectConfiguration": {
+              "wellKnownOpenIdConfiguration": "https://federation-qa.gsk.com/.well-known/openid-configuration"
+            }
+          },
+          "login": {
+            "nameClaimType": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+            "scopes": ["profile", "email"],
+            "loginParameterNames": []
+          }
+        }
       }
-    ],
-    "navigationFallback": {
-      "rewrite": "/index.html",
-      "exclude": ["*.{css,scss,js,png,gif,ico,jpg,svg}"]
     }
   }
 }
