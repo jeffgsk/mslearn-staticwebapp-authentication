@@ -7,7 +7,7 @@ export default {
         type: Object,
         default() {},
       },
-      providers: ['twitter', 'github', 'aad'],
+      providers: ['twitter', 'github', 'aad', 'ping'],
       redirect: window.location.pathname,
     };
   },
